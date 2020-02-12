@@ -3,18 +3,18 @@ apply plugin: 'com.android.library'
 ext {
 
     bintrayRepo = 'maven'
-    bintrayName = 'co.jeraz.JerazPeticiones'
+    bintrayName = 'com.intelixence.easyreq'
 
-    libraryName = 'JerazPeticiones'
+    libraryName = 'EasyReq'
 
-    publishedGroupId = 'co.jeraz.JerazPeticiones'
-    artifact = 'peticiones'
+    publishedGroupId = 'com.intelixence.easyreq'
+    artifact = 'EasyReqLibrary'
     libraryVersion = '0.4'
 
-    libraryDescription = 'Libreria para relizar peticiones a servidores de manera facil'
-    siteUrl = 'https://jeraz.co'
-    gitUrl = 'https://github.com/jerazoficial/JerazPeticiones.git'
-    developerId = 'Jeraz'
+    libraryDescription = 'Easy Request'
+    siteUrl = 'https://intelixence.com'
+    gitUrl = 'https://github.com/Intelixence/EasyReq.git'
+    developerId = 'Intelixence'
     developerName = 'JULIAN ANDRES RAMIREZ ENCISO'
     developerEmail = 'xprite.g@gmail.com'
     licenseName = 'The Apache Software License, Version 2.0'
@@ -30,8 +30,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 3
-        versionName "1.0"
+        versionCode 4
+        versionName "0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
