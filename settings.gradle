@@ -1,0 +1,2 @@
+include ':app', ':EasyReqLibrary'
+rootProject.name='EasyReq'

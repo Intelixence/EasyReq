@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EasyReq</string>
+    <string-array name="acciones">
+        <item>GET</item>
+        <item>POST_JSON</item>
+        <item>POST_FORM_URL_ENCODED</item>
+        <item>MULTIPART_FORM_DATA</item>
+        <item>READ_IMAGE</item>
+    </string-array>
+</resources>
