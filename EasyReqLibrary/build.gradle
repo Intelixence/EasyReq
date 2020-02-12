@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 ext {
 
-    bintrayRepo = 'maven'
+    bintrayRepo = 'intelixence'
     bintrayName = 'com.intelixence.easyreq'
 
     libraryName = 'EasyReq'
