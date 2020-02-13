@@ -1,6 +1,6 @@
 # Welcome to EasyReq 
 
-This library is based in volley, is ideal for save up time of work and development, have 4 functions that are:
+This library is based in volley, is ideal for save up time of work and development, have 5 functions that are:
 
 * GET
 
@@ -13,11 +13,11 @@ This library is based in volley, is ideal for save up time of work and developme
 * READ_IMAGE
 
 
-## Comenzar
+## Start
 
 1. Add the dependencies a gradle that are:
 
-* implementation 'com.intelixence.easyreq:EasyReqLibrary:0.4'
+* implementation 'com.intelixence.easyreq:EasyReqLibrary:0.5'
 
 * implementation 'com.android.volley:volley:1.1.1'
 
@@ -28,57 +28,133 @@ This library is based in volley, is ideal for save up time of work and developme
 This class is in charge of make filter general for all request, for example when the dispositive can't access to the server and verify if is problem of the dispositivo or server.
 
 ```
+    public class CustomEasyReqFilter extends EasyReqFilter {
+    
+        //filter than do case of response
+        public void Filter_response(Context context, String response, int code_request, EasyReq.Event event){
 
+        }
+
+        //filter than do case of error
+        public void Filter_error(Context context, VolleyError volleyError, int code_request, EasyReq.Event event){
+
+        }
+    }
 ```
 
-## Utilizar la peticion
+## Implementation
+* Can management all request alone using new EasyReq.Event and EasyReq.State as a continuation:
+    
+```
+    EasyReq.GET(context, url, CustomEasyReqFilter, 0, new EasyReq.Event() {
+        @Override
+        public void Response(String response, int code_request) {
+            //response next to EasyReqFilter
+        }
 
-* Parametros:
+        @Override
+        public void Error(VolleyError error, int code_request) {
+            //error next to EasyReqFilter
+        }
+    }, new EasyReq.State() {
+        @Override
+        public void Start() {
+            //example show progressbar
+        }
+
+        @Override
+        public void End() {
+            //example hide progressbar
+        }
+    });
+```
     
-    * 
-    *
+* Or use this and implements in your class.
     
-* Implementacion:
-    * Puedes gestionar cada peticion por separado utilizando new Peticion.EventoPeticion y Peticion.EstadoPeticion como a continuacion.
+```
+    public class CustomClass implements EasyReq.Event, EasyReq.State {
     
-    ```
+        public void api_request(Context context, String url){
+            EasyReq.GET(context, url, CustomEasyReqFilter, 0, this, this);
+        }
+        
+        @Override
+        public void Response(String response, int code_request) {
+            //response next to EasyReqFilter
+        }
+
+        @Override
+        public void Error(VolleyError error, int code_request) {
+            //error next to EasyReqFilter
+        }
+        
+        @Override
+        public void Start() {
+            //example show progressbar
+        }
+
+        @Override
+        public void End() {
+            //example hide progressbar
+        }
+    }
+```
     
-    ```
-    
-    * utilizar this e implementarla(implements) en su clase.
-    
-    ```
-    
-    ```
-    
-## Peticiones con sus parametros
+## Request with yours parameters
 
 * GET:
     
     ```
-    
+    EasyReq.GET(Context context, String url, EasyReqFilter easyReqFilter, int code_request, Event event, State state);
     ```
     
 * POST JSON:
     
     ```
+    JSONObject parameters = new JSONObject();
+    parameters.put("param_1", "value");
     
+    EasyReq.POST_JSON(Context context, String url, EasyReqFilter easyReqFilter, int code_request, JSONObject parameters, Event event, State state);
     ```
     
 * POST FORM URL ENCODED:
     
     ```
+    Map<String, String> parameters = new HashMap<>();
+    parameters.put("param_1", "value");
     
+    EasyReq.POST_FORM_URL_ENCODED(Context context, String url, EasyReqFilter easyReqFilter, int code_request, Map<String, String> parameters, Event event, State state);
     ```
     
 * POST MULTIPART FORM DATA:
     
     ```
+    Map<String, String> parameters = new HashMap<>();
+    parameters.put("param_1", "value");
     
+    Map<String, EasyReqFile> files = new HashMap<>();
+    files.put("img_1", new EasyReqFile("img_1", EasyReqFunctions.bitmap_to_byte(bitmap), "image/png"));
+    
+    EasyReq.POST_MULTIPART_FORM_DATA(Context context, String url, EasyReqFilter easyReqFilter, int code_request, Map<String, String> parameters, Map<String, EasyReqFile> files, Event event, State state);
     ```
     
 * READ IMAGE:
     
     ```
-    
+    EasyReq.READ_IMAGE(String url, new EasyReq.EventReadImage() {
+        @Override
+        public void Start() {
+            //example show progressbar
+        }
+
+        @Override
+        public void Downloaded(Bitmap bitmap) {
+            //example hide progressbar and show screen of request completed
+        }
+
+        @Override
+        public void Error(String error) {
+            //example hide progressbar and show modal of error
+        }
+    });
     ```
