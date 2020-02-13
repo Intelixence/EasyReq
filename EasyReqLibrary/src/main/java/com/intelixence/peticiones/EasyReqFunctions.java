@@ -12,12 +12,12 @@ import java.util.Map;
 
 public class EasyReqFunctions {
 
-    public static String dosguiones = "--";
-    public static String finlinea = "\r\n";
-    public static String limite = "apiclient-"+System.currentTimeMillis();
+    public static String two_hyphen = "--";
+    public static String end_line = "\r\n";
+    public static String limit = "apiclient-"+System.currentTimeMillis();
     public static Bitmap bitmap;
 
-    public static String parsear_url(String url){
+    public static String url_parse(String url){
         String[] url_parametros = url.split("\\?");
         if(url_parametros.length > 1){
             String[] parametros = url_parametros[1].split("&");
@@ -49,43 +49,43 @@ public class EasyReqFunctions {
         }
     }
 
-    public static void nuevo_limite(){
-        limite = "apiclient-"+System.currentTimeMillis();
+    public static void new_limit(){
+        limit = "apiclient-"+System.currentTimeMillis();
     }
 
-    public static void AnalizarTexto(DataOutputStream dataOutputStream, Map<String, String> params, String encoding) throws IOException {
+    public static void analyze_text(DataOutputStream dataOutputStream, Map<String, String> params, String encoding) throws IOException {
         try {
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                TextoMultiparte(dataOutputStream, entry.getKey(), entry.getValue());
+                text_multipart(dataOutputStream, entry.getKey(), entry.getValue());
             }
         } catch (UnsupportedEncodingException uee) {
             throw new RuntimeException("Encoding not supported: " + encoding, uee);
         }
     }
 
-    public static void AnalizarArchivo(DataOutputStream dataOutputStream, Map<String, EasyReqFile> data) throws IOException {
+    public static void analyze_file(DataOutputStream dataOutputStream, Map<String, EasyReqFile> data) throws IOException {
         for (Map.Entry<String, EasyReqFile> entry : data.entrySet()) {
-            ArchivosMultiparte(dataOutputStream, entry.getValue(), entry.getKey());
+            files_multipart(dataOutputStream, entry.getValue(), entry.getKey());
         }
     }
 
-    public static void TextoMultiparte(DataOutputStream dataOutputStream, String nombre_parametro, String valor_parametro) throws IOException {
-        dataOutputStream.writeBytes(dosguiones+limite+finlinea);
-        dataOutputStream.writeBytes("Content-Disposition: form-data; name=\""+nombre_parametro+"\""+finlinea);
-        dataOutputStream.writeBytes(finlinea);
-        dataOutputStream.writeBytes(valor_parametro+finlinea);
+    public static void text_multipart(DataOutputStream dataOutputStream, String nombre_parametro, String valor_parametro) throws IOException {
+        dataOutputStream.writeBytes(two_hyphen + limit + end_line);
+        dataOutputStream.writeBytes("Content-Disposition: form-data; name=\""+nombre_parametro+"\""+ end_line);
+        dataOutputStream.writeBytes(end_line);
+        dataOutputStream.writeBytes(valor_parametro+ end_line);
     }
 
-    public static void ArchivosMultiparte(DataOutputStream dataOutputStream, EasyReqFile easyReqFile, String inputName) throws IOException {
-        dataOutputStream.writeBytes(dosguiones + limite + finlinea);
+    public static void files_multipart(DataOutputStream dataOutputStream, EasyReqFile easyReqFile, String inputName) throws IOException {
+        dataOutputStream.writeBytes(two_hyphen + limit + end_line);
         dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" +
-                inputName + "\"; filename=\"" + easyReqFile.getNombre_archivo() + "\"" + finlinea);
-        if (easyReqFile.getTipo() != null && !easyReqFile.getTipo().trim().isEmpty()) {
-            dataOutputStream.writeBytes("Content-Type: " + easyReqFile.getTipo() + finlinea);
+                inputName + "\"; filename=\"" + easyReqFile.getName_file() + "\"" + end_line);
+        if (easyReqFile.getType() != null && !easyReqFile.getType().trim().isEmpty()) {
+            dataOutputStream.writeBytes("Content-Type: " + easyReqFile.getType() + end_line);
         }
-        dataOutputStream.writeBytes(finlinea);
+        dataOutputStream.writeBytes(end_line);
 
-        ByteArrayInputStream fileInputStream = new ByteArrayInputStream(easyReqFile.getContenido());
+        ByteArrayInputStream fileInputStream = new ByteArrayInputStream(easyReqFile.getContent());
         int bytesAvailable = fileInputStream.available();
 
         int maxBufferSize = 1024 * 1024;
@@ -101,10 +101,10 @@ public class EasyReqFunctions {
             bytesRead = fileInputStream.read(buffer, 0, bufferSize);
         }
 
-        dataOutputStream.writeBytes(finlinea);
+        dataOutputStream.writeBytes(end_line);
     }
 
-    public static byte[] Bitmap_to_byte(Bitmap bitmap){
+    public static byte[] bitmap_to_byte(Bitmap bitmap){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();

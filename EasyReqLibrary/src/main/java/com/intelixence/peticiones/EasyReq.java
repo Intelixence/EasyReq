@@ -27,92 +27,92 @@ import java.util.Map;
 
 public class EasyReq {
 
-    public interface EventoPeticion{
-        void Respuesta(String respuesta, int codigo_peticion);
-        void Error(VolleyError error, int codigo_peticion);
+    public interface Event {
+        void Response(String response, int code_request);
+        void Error(VolleyError error, int code_request);
     }
 
-    public interface EstadoPeticion{
-        void Iniciada();
-        void Terminada();
+    public interface State {
+        void Start();
+        void End();
     }
 
-    public static void GET(final Context contexto, String url, final EasyReqFilter autoclasificar, final int codigo_peticion, final EventoPeticion eventoPeticion, final EstadoPeticion estadoPeticion){
-        if(estadoPeticion != null){
-            estadoPeticion.Iniciada();
+    public static void GET(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Event event, final State state){
+        if(state != null){
+            state.Start();
         }
 
-        url = EasyReqFunctions.parsear_url(url);
+        url = EasyReqFunctions.url_parse(url);
 
         RequestQueue requestQueue;
-        requestQueue = Volley.newRequestQueue(contexto);
+        requestQueue = Volley.newRequestQueue(context);
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(eventoPeticion != null){
-                    if(autoclasificar != null){
-                        autoclasificar.Gestionar_respuesta(contexto, response,codigo_peticion, eventoPeticion);
+                if(event != null){
+                    if(easyReqFilter != null){
+                        easyReqFilter.Filter_response(context, response,code_request, event);
                     }else{
-                        eventoPeticion.Respuesta(response,codigo_peticion);
+                        event.Response(response,code_request);
                     }
                 }
-                if(estadoPeticion != null){
-                    estadoPeticion.Terminada();
+                if(state != null){
+                    state.End();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if(eventoPeticion != null){
-                    if(autoclasificar != null){
-                        autoclasificar.Gestionar_error(contexto, error, codigo_peticion, eventoPeticion);
+                if(event != null){
+                    if(easyReqFilter != null){
+                        easyReqFilter.Filter_error(context, error, code_request, event);
                     } else {
-                        eventoPeticion.Error(error, codigo_peticion);
+                        event.Error(error, code_request);
                     }
                 }
-                if(estadoPeticion != null){
-                    estadoPeticion.Terminada();
+                if(state != null){
+                    state.End();
                 }
             }
         });
         requestQueue.add(request);
     }
 
-    public static void POST_JSON(final Context contexto, String url, final EasyReqFilter autoclasificar, final int codigo_peticion, final JSONObject parametros, final EventoPeticion eventoPeticion, final EstadoPeticion estadoPeticion){
-        if(estadoPeticion != null){
-            estadoPeticion.Iniciada();
+    public static void POST_JSON(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final JSONObject parameters, final Event event, final State state){
+        if(state != null){
+            state.Start();
         }
 
-        url = EasyReqFunctions.parsear_url(url);
+        url = EasyReqFunctions.url_parse(url);
 
         RequestQueue requestQueue;
-        requestQueue = Volley.newRequestQueue(contexto);
+        requestQueue = Volley.newRequestQueue(context);
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(eventoPeticion != null){
-                    if(autoclasificar != null){
-                        autoclasificar.Gestionar_respuesta(contexto, response,codigo_peticion, eventoPeticion);
+                if(event != null){
+                    if(easyReqFilter != null){
+                        easyReqFilter.Filter_response(context, response,code_request, event);
                     } else {
-                        eventoPeticion.Respuesta(response,codigo_peticion);
+                        event.Response(response,code_request);
                     }
                 }
-                if(estadoPeticion != null){
-                    estadoPeticion.Terminada();
+                if(state != null){
+                    state.End();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if(eventoPeticion != null){
-                    if(autoclasificar != null){
-                        autoclasificar.Gestionar_error(contexto, error, codigo_peticion, eventoPeticion);
+                if(event != null){
+                    if(easyReqFilter != null){
+                        easyReqFilter.Filter_error(context, error, code_request, event);
                     } else {
-                        eventoPeticion.Error(error, codigo_peticion);
+                        event.Error(error, code_request);
                     }
                 }
-                if(estadoPeticion != null){
-                    estadoPeticion.Terminada();
+                if(state != null){
+                    state.End();
                 }
             }
         }){
@@ -123,47 +123,47 @@ public class EasyReq {
 
             @Override
             public byte[] getBody(){
-                return parametros.toString().getBytes();
+                return parameters.toString().getBytes();
             }
         };
         requestQueue.add(request);
     }
 
-    public static void POST_FORM_URL_ENCODED(final Context contexto, String url, final EasyReqFilter autoclasificar, final int codigo_peticion, final Map<String, String> parametros, final EventoPeticion eventoPeticion, final EstadoPeticion estadoPeticion){
-        if(estadoPeticion != null){
-            estadoPeticion.Iniciada();
+    public static void POST_FORM_URL_ENCODED(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Map<String, String> parameters, final Event event, final State state){
+        if(state != null){
+            state.Start();
         }
 
-        url = EasyReqFunctions.parsear_url(url);
+        url = EasyReqFunctions.url_parse(url);
 
         RequestQueue requestQueue;
-        requestQueue = Volley.newRequestQueue(contexto);
+        requestQueue = Volley.newRequestQueue(context);
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(eventoPeticion != null){
-                    if(autoclasificar != null){
-                        autoclasificar.Gestionar_respuesta(contexto, response,codigo_peticion, eventoPeticion);
+                if(event != null){
+                    if(easyReqFilter != null){
+                        easyReqFilter.Filter_response(context, response,code_request, event);
                     } else {
-                        eventoPeticion.Respuesta(response,codigo_peticion);
+                        event.Response(response,code_request);
                     }
                 }
-                if(estadoPeticion != null){
-                    estadoPeticion.Terminada();
+                if(state != null){
+                    state.End();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if(eventoPeticion != null){
-                    if(autoclasificar != null){
-                        autoclasificar.Gestionar_error(contexto, error, codigo_peticion, eventoPeticion);
+                if(event != null){
+                    if(easyReqFilter != null){
+                        easyReqFilter.Filter_error(context, error, code_request, event);
                     } else {
-                        eventoPeticion.Error(error, codigo_peticion);
+                        event.Error(error, code_request);
                     }
                 }
-                if(estadoPeticion != null){
-                    estadoPeticion.Terminada();
+                if(state != null){
+                    state.End();
                 }
             }
         }){
@@ -173,35 +173,35 @@ public class EasyReq {
             }
 
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return parametros;
+            protected Map<String, String> getParams() {
+                return parameters;
             }
         };
         requestQueue.add(request);
     }
 
-    public static void POST_MULTIPART_FORM_DATA(final Context contexto, String url, final EasyReqFilter autoclasificar, final int codigo_peticion, final Map<String, String> parametros, final Map<String, EasyReqFile> archivos, final EventoPeticion eventoPeticion, final EstadoPeticion estadoPeticion){
-        if(estadoPeticion != null){
-            estadoPeticion.Iniciada();
+    public static void POST_MULTIPART_FORM_DATA(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Map<String, String> parameters, final Map<String, EasyReqFile> files, final Event event, final State state){
+        if(state != null){
+            state.Start();
         }
 
-        EasyReqFunctions.nuevo_limite();
-        url = EasyReqFunctions.parsear_url(url);
+        EasyReqFunctions.new_limit();
+        url = EasyReqFunctions.url_parse(url);
 
         RequestQueue requestQueue;
-        requestQueue = Volley.newRequestQueue(contexto);
+        requestQueue = Volley.newRequestQueue(context);
         Request<NetworkResponse> request = new Request<NetworkResponse>(Request.Method.POST, url, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if(eventoPeticion != null){
-                    if(autoclasificar != null){
-                        autoclasificar.Gestionar_error(contexto, error, codigo_peticion, eventoPeticion);
+                if(event != null){
+                    if(easyReqFilter != null){
+                        easyReqFilter.Filter_error(context, error, code_request, event);
                     } else {
-                        eventoPeticion.Error(error, codigo_peticion);
+                        event.Error(error, code_request);
                     }
                 }
-                if(estadoPeticion != null){
-                    estadoPeticion.Terminada();
+                if(state != null){
+                    state.End();
                 }
             }
         }) {
@@ -218,15 +218,15 @@ public class EasyReq {
             protected void deliverResponse(NetworkResponse networkResponse) {
                 try {
                     String response = new String(networkResponse.data, HttpHeaderParser.parseCharset(networkResponse.headers));
-                    if(eventoPeticion != null){
-                        if(autoclasificar != null){
-                            autoclasificar.Gestionar_respuesta(contexto, response,codigo_peticion, eventoPeticion);
+                    if(event != null){
+                        if(easyReqFilter != null){
+                            easyReqFilter.Filter_response(context, response,code_request, event);
                         } else {
-                            eventoPeticion.Respuesta(response,codigo_peticion);
+                            event.Response(response,code_request);
                         }
                     }
-                    if(estadoPeticion != null){
-                        estadoPeticion.Terminada();
+                    if(state != null){
+                        state.End();
                     }
                 } catch (UnsupportedEncodingException e) {
                     VolleyError volleyError = new VolleyError(e);
@@ -236,23 +236,23 @@ public class EasyReq {
 
             @Override
             public String getBodyContentType() {
-                return "multipart/form-data;boundary="+ EasyReqFunctions.limite;
+                return "multipart/form-data;boundary="+ EasyReqFunctions.limit;
             }
 
             @Override
-            public byte[] getBody() throws AuthFailureError {
+            public byte[] getBody() {
                 ByteArrayOutputStream arreglo_body = new ByteArrayOutputStream();
                 DataOutputStream data_body = new DataOutputStream(arreglo_body);
 
                 try {
-                    if (parametros != null && parametros.size() > 0) {
-                        EasyReqFunctions.AnalizarTexto(data_body, parametros, getParamsEncoding());
+                    if (parameters != null && parameters.size() > 0) {
+                        EasyReqFunctions.analyze_text(data_body, parameters, getParamsEncoding());
                     }
 
-                    if (archivos != null && archivos.size() > 0) {
-                        EasyReqFunctions.AnalizarArchivo(data_body, archivos);
+                    if (files != null && files.size() > 0) {
+                        EasyReqFunctions.analyze_file(data_body, files);
                     }
-                    data_body.writeBytes(EasyReqFunctions.dosguiones+ EasyReqFunctions.limite+ EasyReqFunctions.dosguiones+ EasyReqFunctions.finlinea);
+                    data_body.writeBytes(EasyReqFunctions.two_hyphen + EasyReqFunctions.limit + EasyReqFunctions.two_hyphen + EasyReqFunctions.end_line);
                     return arreglo_body.toByteArray();
                 } catch (IOException e) {
                     VolleyError volleyError = new VolleyError(e);
@@ -261,26 +261,26 @@ public class EasyReq {
                 return null;
             }
 
-            protected Map<String, EasyReqFile> getByteData() throws AuthFailureError {
+            protected Map<String, EasyReqFile> getByteData() {
                 return null;
             }
         };
         requestQueue.add(request);
 
-        if(estadoPeticion != null){
-            estadoPeticion.Terminada();
+        if(state != null){
+            state.End();
         }
     }
 
-    public interface EventoReadImage{
+    public interface EventReadImage {
         void Start();
-        void Downloaded(Bitmap resultado);
+        void Downloaded(Bitmap bitmap);
         void Error(String error);
     }
 
-    public static void READ_IMAGE(final Context contexto, final String url, final EventoReadImage eventoReadImage){
-        if(eventoReadImage != null) {
-            eventoReadImage.Start();
+    public static void READ_IMAGE(final String url, final EventReadImage eventReadImage){
+        if(eventReadImage != null) {
+            eventReadImage.Start();
         }
         EasyReqFunctions.bitmap = null;
         AsyncTask<String,Void,Bitmap> asyncTask = new AsyncTask<String, Void, Bitmap>() {
@@ -291,8 +291,8 @@ public class EasyReq {
                     InputStream in = new java.net.URL(url).openStream();
                     bmp = BitmapFactory.decodeStream(in);
                 } catch (Exception e) {
-                    if(eventoReadImage != null) {
-                        eventoReadImage.Error(e.getMessage());
+                    if(eventReadImage != null) {
+                        eventReadImage.Error(e.getMessage());
                     }
                 }
                 return bmp;
@@ -300,10 +300,10 @@ public class EasyReq {
 
             protected void onPostExecute(Bitmap resultado) {
                 if(resultado != null){
-                    eventoReadImage.Downloaded(resultado);
+                    eventReadImage.Downloaded(resultado);
                 }else{
-                    if(eventoReadImage != null) {
-                        eventoReadImage.Error("Imagen no encontrada");
+                    if(eventReadImage != null) {
+                        eventReadImage.Error("Imagen no encontrada");
                     }
                 }
             }

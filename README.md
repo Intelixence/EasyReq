@@ -30,13 +30,13 @@ Esta clase es la encargada de hacer de filtro, por ejemplo cuando el dispositivo
 ```
 public class CustomAutoClasificar extends AutoClasificar {
     @Override
-    public void Gestionar_respuesta(final Context context, String response, int codigo_peticion, Peticion.EventoPeticion eventoPeticion){
+    public void Gestionar_respuesta(final Context context, String response, int codigo_peticion, Peticion.EventoPeticion event){
         //aqui haces filtro dependiendo la respuesta del servidor
         //por ejemplo, verifique si la sesion es valida y sino llevarlo a iniciar sesion
     }
 
     @Override
-    public void Gestionar_error(Context context, VolleyError volleyError, int codigo_error,Peticion.EventoPeticion eventoPeticion) {
+    public void Gestionar_error(Context context, VolleyError volleyError, int codigo_error,Peticion.EventoPeticion event) {
         //aqui colocas las verificaciones y las acciones en caso de no obtener respuesta del servidor
     }
 }
@@ -62,7 +62,7 @@ public class CustomAutoClasificar extends AutoClasificar {
         private function consultar(){
           Peticion.GET(context, url, new CustomAutoClasificar, 0, new Peticion.EventoPeticion() {
                   @Override
-                  public void Respuesta(String respuesta, int codigo_peticion) {
+                  public void Response(String respuesta, int codigo_peticion) {
               
                   }
 
@@ -96,7 +96,7 @@ public class CustomAutoClasificar extends AutoClasificar {
         }
         
         @Override
-        public void Respuesta(String respuesta, int codigo_peticion) {
+        public void Response(String respuesta, int codigo_peticion) {
         
         }
 

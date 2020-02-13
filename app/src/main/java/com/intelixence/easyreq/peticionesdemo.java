@@ -69,20 +69,20 @@ public class peticionesdemo extends AppCompatActivity {
                 data.setText("");
                 imagen_cargada.setImageResource(android.R.drawable.ic_menu_gallery);
                 if(autoclasificar.isChecked()){
-                    easyReqFilter = new Autoclasificar();
+                    easyReqFilter = new easyReqFilter();
                 }else{
                     easyReqFilter = null;
                 }
                 switch (protocolo.getSelectedItemPosition()){
                     case 0: {
-                        EasyReq.GET(peticionesdemo.this, url.getText().toString(), easyReqFilter,0,new EasyReq.EventoPeticion() {
+                        EasyReq.GET(peticionesdemo.this, url.getText().toString(), easyReqFilter,0,new EasyReq.Event() {
                             @Override
-                            public void Respuesta(String respuesta, int codigo_peticion) {
-                                data.setText(respuesta);
+                            public void Response(String response, int code_request) {
+                                data.setText(response);
                             }
 
                             @Override
-                            public void Error(VolleyError error, int codigo_peticion) {
+                            public void Error(VolleyError error, int code_request) {
                                 log.setText(error.toString());
                             }
                         },null);
@@ -103,14 +103,14 @@ public class peticionesdemo extends AppCompatActivity {
                                 }
                             }
                         }
-                        EasyReq.POST_JSON(peticionesdemo.this, url.getText().toString(), easyReqFilter,0, map_parametros, new EasyReq.EventoPeticion() {
+                        EasyReq.POST_JSON(peticionesdemo.this, url.getText().toString(), easyReqFilter,0, map_parametros, new EasyReq.Event() {
                             @Override
-                            public void Respuesta(String respuesta, int codigo_peticion) {
-                                data.setText(respuesta);
+                            public void Response(String response, int code_request) {
+                                data.setText(response);
                             }
 
                             @Override
-                            public void Error(VolleyError error, int codigo_peticion) {
+                            public void Error(VolleyError error, int code_request) {
                                 log.setText(error.toString());
                             }
                         }, null);
@@ -127,14 +127,14 @@ public class peticionesdemo extends AppCompatActivity {
                                 }
                             }
                         }
-                        EasyReq.POST_FORM_URL_ENCODED(peticionesdemo.this, url.getText().toString(), easyReqFilter,0,map_parametros, new EasyReq.EventoPeticion() {
+                        EasyReq.POST_FORM_URL_ENCODED(peticionesdemo.this, url.getText().toString(), easyReqFilter,0,map_parametros, new EasyReq.Event() {
                             @Override
-                            public void Respuesta(String respuesta, int codigo_peticion) {
-                                data.setText(respuesta);
+                            public void Response(String response, int code_request) {
+                                data.setText(response);
                             }
 
                             @Override
-                            public void Error(VolleyError error, int codigo_peticion) {
+                            public void Error(VolleyError error, int code_request) {
                                 log.setText(error.toString());
                             }
                         }, null);
@@ -152,30 +152,30 @@ public class peticionesdemo extends AppCompatActivity {
                             }
                         }
                         Map<String, EasyReqFile> archivos = new HashMap<>();
-                        archivos.put("imagen_prueba",new EasyReqFile("imagen_prueba", EasyReqFunctions.Bitmap_to_byte(imagen_seleccionada),"image/png"));
-                        EasyReq.POST_MULTIPART_FORM_DATA(peticionesdemo.this, url.getText().toString(), easyReqFilter,0,map_parametros, archivos,new EasyReq.EventoPeticion() {
+                        archivos.put("imagen_prueba",new EasyReqFile("imagen_prueba", EasyReqFunctions.bitmap_to_byte(imagen_seleccionada),"image/png"));
+                        EasyReq.POST_MULTIPART_FORM_DATA(peticionesdemo.this, url.getText().toString(), easyReqFilter,0,map_parametros, archivos,new EasyReq.Event() {
                             @Override
-                            public void Respuesta(String respuesta, int codigo_peticion) {
-                                data.setText(respuesta);
+                            public void Response(String response, int code_request) {
+                                data.setText(response);
                             }
 
                             @Override
-                            public void Error(VolleyError error, int codigo_peticion) {
+                            public void Error(VolleyError error, int code_request) {
                                 log.setText(error.toString());
                             }
                         }, null);
                         break;
                     case 4:
-                        EasyReq.READ_IMAGE(peticionesdemo.this, url.getText().toString(), new EasyReq.EventoReadImage() {
+                        EasyReq.READ_IMAGE(url.getText().toString(), new EasyReq.EventReadImage() {
                             @Override
                             public void Start() {
                                 carga_imagen.setVisibility(View.VISIBLE);
                             }
 
                             @Override
-                            public void Downloaded(Bitmap resultado) {
+                            public void Downloaded(Bitmap bitmap) {
                                 carga_imagen.setVisibility(View.GONE);
-                                imagen_cargada.setImageBitmap(resultado);
+                                imagen_cargada.setImageBitmap(bitmap);
                             }
 
                             @Override

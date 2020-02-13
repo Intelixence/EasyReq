@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 
 public class EasyReqNet {
 
-    public static boolean habilitado(Context context) {
+    public static boolean internet_enabled(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo actNetInfo = connectivityManager.getActiveNetworkInfo();
         if(actNetInfo != null && actNetInfo.isConnected()){
@@ -17,7 +17,7 @@ public class EasyReqNet {
         }
     }
 
-    public static boolean acceso_internet(Context context) {
+    public static boolean have_internet(Context context) {
         try {
             Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
             int val = p.waitFor();
