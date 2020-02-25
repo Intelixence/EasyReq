@@ -37,7 +37,35 @@ public class EasyReq {
         void End();
     }
 
+    private static EasyReqEndRequest easyReqEndRequest = null;
+
+    public static void ExecuteLastRequest(){
+        if (easyReqEndRequest != null) {
+            switch (easyReqEndRequest.type) {
+                case 1:
+                    GET(easyReqEndRequest.getContext(), easyReqEndRequest.getUrl(), easyReqEndRequest.getEasyReqFilter(), easyReqEndRequest.getCode_request(), easyReqEndRequest.getEvent(), easyReqEndRequest.getState());
+                    break;
+                case 2:
+                    POST_JSON(easyReqEndRequest.getContext(), easyReqEndRequest.getUrl(), easyReqEndRequest.getEasyReqFilter(), easyReqEndRequest.getCode_request(), easyReqEndRequest.getParameters_json(),easyReqEndRequest.getEvent(), easyReqEndRequest.getState());
+                    break;
+                case 3:
+                    POST_FORM_URL_ENCODED(easyReqEndRequest.getContext(), easyReqEndRequest.getUrl(), easyReqEndRequest.getEasyReqFilter(), easyReqEndRequest.getCode_request(), easyReqEndRequest.getParameters_map(), easyReqEndRequest.getEvent(), easyReqEndRequest.getState());
+                    break;
+                case 4:
+                    POST_MULTIPART_FORM_DATA(easyReqEndRequest.getContext(), easyReqEndRequest.getUrl(), easyReqEndRequest.getEasyReqFilter(), easyReqEndRequest.getCode_request(), easyReqEndRequest.getParameters_map(), easyReqEndRequest.getFiles(), easyReqEndRequest.getEvent(), easyReqEndRequest.getState());
+                    break;
+            }
+        }
+    }
+
+    private static void SaveLastRequest(int type, Context context, String url, EasyReqFilter easyReqFilter, int code_request, final JSONObject parameters_json, Map<String, String> parameters_map, Map<String, EasyReqFile> files, Event event, State state){
+        easyReqFilter = null;
+        easyReqEndRequest = new EasyReqEndRequest(type, context, url, easyReqFilter, code_request, parameters_json, parameters_map, files, event, state);
+    }
+
     public static void GET(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Event event, final State state){
+        SaveLastRequest(1, context, url, easyReqFilter, code_request, null, null, null, event, state);
+
         if(state != null){
             state.Start();
         }
@@ -79,6 +107,8 @@ public class EasyReq {
     }
 
     public static void POST_JSON(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final JSONObject parameters, final Event event, final State state){
+        SaveLastRequest(2, context, url, easyReqFilter, code_request, parameters, null, null, event, state);
+
         if(state != null){
             state.Start();
         }
@@ -130,6 +160,8 @@ public class EasyReq {
     }
 
     public static void POST_FORM_URL_ENCODED(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Map<String, String> parameters, final Event event, final State state){
+        SaveLastRequest(3, context, url, easyReqFilter, code_request, null, parameters, null, event, state);
+
         if(state != null){
             state.Start();
         }
@@ -181,6 +213,8 @@ public class EasyReq {
     }
 
     public static void POST_MULTIPART_FORM_DATA(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Map<String, String> parameters, final Map<String, EasyReqFile> files, final Event event, final State state){
+        SaveLastRequest(4, context, url, easyReqFilter, code_request, null, parameters, files, event, state);
+
         if(state != null){
             state.Start();
         }
