@@ -6,20 +6,21 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
-public class EasyReqEndRequest {
+public class EasyReqLastRequest {
 
     int type;
-    Context context;
-    String url;
-    EasyReqFilter easyReqFilter;
-    int code_request;
-    JSONObject parameters_json;
-    Map<String, String> parameters_map;
-    Map<String, EasyReqFile> files;
-    EasyReq.Event event;
-    EasyReq.State state;
+    private Context context;
+    private String url;
+    private EasyReqFilter easyReqFilter;
+    private int code_request;
+    private JSONObject parameters_json;
+    private Map<String, String> parameters_map;
+    private Map<String, EasyReqFile> files;
+    private EasyReq.Event event;
+    private EasyReq.State state;
+    private int timeout;
 
-    public EasyReqEndRequest(int type, Context context, String url, EasyReqFilter easyReqFilter, int code_request, JSONObject parameters_json, Map<String, String> parameters_map, Map<String, EasyReqFile> files, EasyReq.Event event, EasyReq.State state) {
+    public EasyReqLastRequest(int type, Context context, String url, EasyReqFilter easyReqFilter, int code_request, JSONObject parameters_json, Map<String, String> parameters_map, Map<String, EasyReqFile> files, EasyReq.Event event, EasyReq.State state, int timeout) {
         this.type = type;
         this.context = context;
         this.url = url;
@@ -30,6 +31,7 @@ public class EasyReqEndRequest {
         this.files = files;
         this.event = event;
         this.state = state;
+        this.timeout = timeout;
     }
 
     public int getType() {
@@ -70,5 +72,9 @@ public class EasyReqEndRequest {
 
     public EasyReq.State getState() {
         return state;
+    }
+
+    public int getTimeout() {
+        return timeout;
     }
 }

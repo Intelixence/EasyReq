@@ -105,7 +105,7 @@ This class is in charge of make filter general for all request, for example when
 * GET:
     
     ```
-    EasyReq.GET(Context context, String url, EasyReqFilter easyReqFilter, int code_request, Event event, State state);
+    EasyReq.GET(Context context, String url, EasyReqFilter easyReqFilter, int code_request, Event event, State state, int timeout);
     ```
     
 * POST JSON:
@@ -114,7 +114,7 @@ This class is in charge of make filter general for all request, for example when
     JSONObject parameters = new JSONObject();
     parameters.put("param_1", "value");
     
-    EasyReq.POST_JSON(Context context, String url, EasyReqFilter easyReqFilter, int code_request, JSONObject parameters, Event event, State state);
+    EasyReq.POST_JSON(Context context, String url, EasyReqFilter easyReqFilter, int code_request, JSONObject parameters, Event event, State state, int timeout);
     ```
     
 * POST FORM URL ENCODED:
@@ -123,7 +123,7 @@ This class is in charge of make filter general for all request, for example when
     Map<String, String> parameters = new HashMap<>();
     parameters.put("param_1", "value");
     
-    EasyReq.POST_FORM_URL_ENCODED(Context context, String url, EasyReqFilter easyReqFilter, int code_request, Map<String, String> parameters, Event event, State state);
+    EasyReq.POST_FORM_URL_ENCODED(Context context, String url, EasyReqFilter easyReqFilter, int code_request, Map<String, String> parameters, Event event, State state, int timeout);
     ```
     
 * POST MULTIPART FORM DATA:
@@ -135,7 +135,7 @@ This class is in charge of make filter general for all request, for example when
     Map<String, EasyReqFile> files = new HashMap<>();
     files.put("img_1", new EasyReqFile("img_1", EasyReqFunctions.bitmap_to_byte(bitmap), "image/png"));
     
-    EasyReq.POST_MULTIPART_FORM_DATA(Context context, String url, EasyReqFilter easyReqFilter, int code_request, Map<String, String> parameters, Map<String, EasyReqFile> files, Event event, State state);
+    EasyReq.POST_MULTIPART_FORM_DATA(Context context, String url, EasyReqFilter easyReqFilter, int code_request, Map<String, String> parameters, Map<String, EasyReqFile> files, Event event, State state, int timeout);
     ```
     
 * READ IMAGE:

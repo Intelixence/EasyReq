@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
-import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -37,34 +37,34 @@ public class EasyReq {
         void End();
     }
 
-    private static EasyReqEndRequest easyReqEndRequest = null;
+    private static EasyReqLastRequest easyReqLastRequest = null;
 
     public static void ExecuteLastRequest(){
-        if (easyReqEndRequest != null) {
-            switch (easyReqEndRequest.type) {
+        if (easyReqLastRequest != null) {
+            switch (easyReqLastRequest.type) {
                 case 1:
-                    GET(easyReqEndRequest.getContext(), easyReqEndRequest.getUrl(), easyReqEndRequest.getEasyReqFilter(), easyReqEndRequest.getCode_request(), easyReqEndRequest.getEvent(), easyReqEndRequest.getState());
+                    GET(easyReqLastRequest.getContext(), easyReqLastRequest.getUrl(), easyReqLastRequest.getEasyReqFilter(), easyReqLastRequest.getCode_request(), easyReqLastRequest.getEvent(), easyReqLastRequest.getState(), easyReqLastRequest.getTimeout());
                     break;
                 case 2:
-                    POST_JSON(easyReqEndRequest.getContext(), easyReqEndRequest.getUrl(), easyReqEndRequest.getEasyReqFilter(), easyReqEndRequest.getCode_request(), easyReqEndRequest.getParameters_json(),easyReqEndRequest.getEvent(), easyReqEndRequest.getState());
+                    POST_JSON(easyReqLastRequest.getContext(), easyReqLastRequest.getUrl(), easyReqLastRequest.getEasyReqFilter(), easyReqLastRequest.getCode_request(), easyReqLastRequest.getParameters_json(), easyReqLastRequest.getEvent(), easyReqLastRequest.getState(), easyReqLastRequest.getTimeout());
                     break;
                 case 3:
-                    POST_FORM_URL_ENCODED(easyReqEndRequest.getContext(), easyReqEndRequest.getUrl(), easyReqEndRequest.getEasyReqFilter(), easyReqEndRequest.getCode_request(), easyReqEndRequest.getParameters_map(), easyReqEndRequest.getEvent(), easyReqEndRequest.getState());
+                    POST_FORM_URL_ENCODED(easyReqLastRequest.getContext(), easyReqLastRequest.getUrl(), easyReqLastRequest.getEasyReqFilter(), easyReqLastRequest.getCode_request(), easyReqLastRequest.getParameters_map(), easyReqLastRequest.getEvent(), easyReqLastRequest.getState(), easyReqLastRequest.getTimeout());
                     break;
                 case 4:
-                    POST_MULTIPART_FORM_DATA(easyReqEndRequest.getContext(), easyReqEndRequest.getUrl(), easyReqEndRequest.getEasyReqFilter(), easyReqEndRequest.getCode_request(), easyReqEndRequest.getParameters_map(), easyReqEndRequest.getFiles(), easyReqEndRequest.getEvent(), easyReqEndRequest.getState());
+                    POST_MULTIPART_FORM_DATA(easyReqLastRequest.getContext(), easyReqLastRequest.getUrl(), easyReqLastRequest.getEasyReqFilter(), easyReqLastRequest.getCode_request(), easyReqLastRequest.getParameters_map(), easyReqLastRequest.getFiles(), easyReqLastRequest.getEvent(), easyReqLastRequest.getState(), easyReqLastRequest.getTimeout());
                     break;
             }
         }
     }
 
-    private static void SaveLastRequest(int type, Context context, String url, EasyReqFilter easyReqFilter, int code_request, final JSONObject parameters_json, Map<String, String> parameters_map, Map<String, EasyReqFile> files, Event event, State state){
+    private static void SaveLastRequest(int type, Context context, String url, EasyReqFilter easyReqFilter, int code_request, final JSONObject parameters_json, Map<String, String> parameters_map, Map<String, EasyReqFile> files, Event event, State state, int timeout){
         easyReqFilter = null;
-        easyReqEndRequest = new EasyReqEndRequest(type, context, url, easyReqFilter, code_request, parameters_json, parameters_map, files, event, state);
+        easyReqLastRequest = new EasyReqLastRequest(type, context, url, easyReqFilter, code_request, parameters_json, parameters_map, files, event, state, timeout);
     }
 
-    public static void GET(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Event event, final State state){
-        SaveLastRequest(1, context, url, easyReqFilter, code_request, null, null, null, event, state);
+    public static void GET(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Event event, final State state, int timeout){
+        SaveLastRequest(1, context, url, easyReqFilter, code_request, null, null, null, event, state, timeout);
 
         if(state != null){
             state.Start();
@@ -103,11 +103,12 @@ public class EasyReq {
                 }
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(timeout, 0, 0));
         requestQueue.add(request);
     }
 
-    public static void POST_JSON(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final JSONObject parameters, final Event event, final State state){
-        SaveLastRequest(2, context, url, easyReqFilter, code_request, parameters, null, null, event, state);
+    public static void POST_JSON(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final JSONObject parameters, final Event event, final State state, int timeout){
+        SaveLastRequest(2, context, url, easyReqFilter, code_request, parameters, null, null, event, state, timeout);
 
         if(state != null){
             state.Start();
@@ -156,11 +157,12 @@ public class EasyReq {
                 return parameters.toString().getBytes();
             }
         };
+        request.setRetryPolicy(new DefaultRetryPolicy(timeout, 0, 0));
         requestQueue.add(request);
     }
 
-    public static void POST_FORM_URL_ENCODED(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Map<String, String> parameters, final Event event, final State state){
-        SaveLastRequest(3, context, url, easyReqFilter, code_request, null, parameters, null, event, state);
+    public static void POST_FORM_URL_ENCODED(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Map<String, String> parameters, final Event event, final State state, int timeout){
+        SaveLastRequest(3, context, url, easyReqFilter, code_request, null, parameters, null, event, state, timeout);
 
         if(state != null){
             state.Start();
@@ -209,11 +211,12 @@ public class EasyReq {
                 return parameters;
             }
         };
+        request.setRetryPolicy(new DefaultRetryPolicy(timeout, 0, 0));
         requestQueue.add(request);
     }
 
-    public static void POST_MULTIPART_FORM_DATA(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Map<String, String> parameters, final Map<String, EasyReqFile> files, final Event event, final State state){
-        SaveLastRequest(4, context, url, easyReqFilter, code_request, null, parameters, files, event, state);
+    public static void POST_MULTIPART_FORM_DATA(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Map<String, String> parameters, final Map<String, EasyReqFile> files, final Event event, final State state, int timeout){
+        SaveLastRequest(4, context, url, easyReqFilter, code_request, null, parameters, files, event, state, timeout);
 
         if(state != null){
             state.Start();
@@ -299,6 +302,7 @@ public class EasyReq {
                 return null;
             }
         };
+        request.setRetryPolicy(new DefaultRetryPolicy(timeout, 0, 0));
         requestQueue.add(request);
 
         if(state != null){
