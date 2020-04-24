@@ -59,7 +59,6 @@ public class EasyReq {
     }
 
     private static void SaveLastRequest(int type, Context context, String url, EasyReqFilter easyReqFilter, int code_request, final JSONObject parameters_json, Map<String, String> parameters_map, Map<String, EasyReqFile> files, Event event, State state, int timeout){
-        easyReqFilter = null;
         easyReqLastRequest = new EasyReqLastRequest(type, context, url, easyReqFilter, code_request, parameters_json, parameters_map, files, event, state, timeout);
     }
 

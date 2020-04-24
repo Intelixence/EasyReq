@@ -9,7 +9,7 @@ ext {
 
     publishedGroupId = 'com.intelixence.easyreq'
     artifact = 'EasyReqLibrary'
-    libraryVersion = '0.7'
+    libraryVersion = '0.8'
 
     libraryDescription = 'Easy Request'
     siteUrl = 'https://intelixence.com'
@@ -30,8 +30,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 7
-        versionName "0.7"
+        versionCode 8
+        versionName "0.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
