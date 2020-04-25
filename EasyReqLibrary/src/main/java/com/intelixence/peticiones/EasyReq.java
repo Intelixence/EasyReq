@@ -23,6 +23,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class EasyReq {
@@ -38,6 +39,8 @@ public class EasyReq {
     }
 
     private static EasyReqLastRequest easyReqLastRequest = null;
+    private static ArrayList<EasyReqLastRequest> historyEasyReqLastRequests = null;
+    private static boolean enabledHistoryRequest = false;
 
     public static void ExecuteLastRequest(){
         if (easyReqLastRequest != null) {
@@ -58,8 +61,42 @@ public class EasyReq {
         }
     }
 
+    public static void enabledHistoryRequests(boolean enable){
+        enabledHistoryRequest = enable;
+    }
+
+    public static void ExecuteHistoryRequests(EasyReqLastRequest easyReqLastRequest){
+        if (easyReqLastRequest != null) {
+            switch (easyReqLastRequest.type) {
+                case 1:
+                    GET(easyReqLastRequest.getContext(), easyReqLastRequest.getUrl(), easyReqLastRequest.getEasyReqFilter(), easyReqLastRequest.getCode_request(), easyReqLastRequest.getEvent(), easyReqLastRequest.getState(), easyReqLastRequest.getTimeout());
+                    break;
+                case 2:
+                    POST_JSON(easyReqLastRequest.getContext(), easyReqLastRequest.getUrl(), easyReqLastRequest.getEasyReqFilter(), easyReqLastRequest.getCode_request(), easyReqLastRequest.getParameters_json(), easyReqLastRequest.getEvent(), easyReqLastRequest.getState(), easyReqLastRequest.getTimeout());
+                    break;
+                case 3:
+                    POST_FORM_URL_ENCODED(easyReqLastRequest.getContext(), easyReqLastRequest.getUrl(), easyReqLastRequest.getEasyReqFilter(), easyReqLastRequest.getCode_request(), easyReqLastRequest.getParameters_map(), easyReqLastRequest.getEvent(), easyReqLastRequest.getState(), easyReqLastRequest.getTimeout());
+                    break;
+                case 4:
+                    POST_MULTIPART_FORM_DATA(easyReqLastRequest.getContext(), easyReqLastRequest.getUrl(), easyReqLastRequest.getEasyReqFilter(), easyReqLastRequest.getCode_request(), easyReqLastRequest.getParameters_map(), easyReqLastRequest.getFiles(), easyReqLastRequest.getEvent(), easyReqLastRequest.getState(), easyReqLastRequest.getTimeout());
+                    break;
+            }
+        }
+    }
+
+    public static ArrayList<EasyReqLastRequest> getHistoryRequests() {
+        return historyEasyReqLastRequests;
+    }
+
+    public static void clearHistoryRequests(){
+        historyEasyReqLastRequests.clear();
+    }
+
     private static void SaveLastRequest(int type, Context context, String url, EasyReqFilter easyReqFilter, int code_request, final JSONObject parameters_json, Map<String, String> parameters_map, Map<String, EasyReqFile> files, Event event, State state, int timeout){
         easyReqLastRequest = new EasyReqLastRequest(type, context, url, easyReqFilter, code_request, parameters_json, parameters_map, files, event, state, timeout);
+        if (enabledHistoryRequest){
+            historyEasyReqLastRequests.add(easyReqLastRequest);
+        }
     }
 
     public static void GET(final Context context, String url, final EasyReqFilter easyReqFilter, final int code_request, final Event event, final State state, int timeout){
