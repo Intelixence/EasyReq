@@ -39,7 +39,7 @@ public class EasyReq {
     }
 
     private static EasyReqLastRequest easyReqLastRequest = null;
-    private static ArrayList<EasyReqLastRequest> historyEasyReqLastRequests = null;
+    private static ArrayList<EasyReqLastRequest> historyEasyReqLastRequests = new ArrayList<>();
     private static boolean enabledHistoryRequest = false;
 
     public static void ExecuteLastRequest(){

@@ -17,7 +17,7 @@ This library is based in volley, is ideal for save up time of work and developme
 
 1. Add the dependencies a gradle that are:
 
-* implementation 'com.intelixence.easyreq:EasyReqLibrary:0.9'
+* implementation 'com.intelixence.easyreq:EasyReqLibrary:0.10'
 
 * implementation 'com.android.volley:volley:1.1.1'
 
