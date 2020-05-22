@@ -17,7 +17,7 @@ This library is based in volley, is ideal for save up time of work and developme
 
 1. Add the dependencies a gradle that are:
 
-* implementation 'com.intelixence.easyreq:EasyReqLibrary:0.10'
+* implementation 'com.devbinar.community:EasyReqLibrary:0.10'
 
 * implementation 'com.android.volley:volley:1.1.1'
 
@@ -66,7 +66,7 @@ This class is in charge of make filter general for all request, for example when
         public void End() {
             //example hide progressbar
         }
-    });
+    }, 25000);
 ```
     
 * Or use this and implements in your class.
@@ -75,7 +75,7 @@ This class is in charge of make filter general for all request, for example when
     public class CustomClass implements EasyReq.Event, EasyReq.State {
     
         public void api_request(Context context, String url){
-            EasyReq.GET(context, url, CustomEasyReqFilter, 0, this, this);
+            EasyReq.GET(context, url, CustomEasyReqFilter, 0, this, this, 25000);
         }
         
         @Override
