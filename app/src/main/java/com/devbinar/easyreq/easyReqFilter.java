@@ -1,12 +1,12 @@
-package com.intelixence.easyreq;
+package com.devbinar.easyreq;
 
 import android.content.Context;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
-import com.intelixence.peticiones.EasyReqFilter;
-import com.intelixence.peticiones.EasyReq;
+import com.devbinar.peticiones.EasyReqFilter;
+import com.devbinar.peticiones.EasyReq;
 
 public class easyReqFilter extends EasyReqFilter {
 

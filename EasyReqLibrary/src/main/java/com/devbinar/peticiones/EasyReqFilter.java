@@ -1,13 +1,8 @@
-package com.intelixence.peticiones;
+package com.devbinar.peticiones;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class EasyReqFilter {
 

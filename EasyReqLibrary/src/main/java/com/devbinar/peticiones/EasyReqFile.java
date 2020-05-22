@@ -1,4 +1,4 @@
-package com.intelixence.peticiones;
+package com.devbinar.peticiones;
 
 public class EasyReqFile {
 

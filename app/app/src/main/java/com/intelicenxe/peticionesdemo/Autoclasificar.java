@@ -5,8 +5,8 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
-import com.intelixence.peticiones.AutoClasificar;
-import com.intelixence.peticiones.Peticion;
+import com.devbinar.peticiones.AutoClasificar;
+import com.devbinar.peticiones.Peticion;
 
 public class Autoclasificar extends AutoClasificar {
 

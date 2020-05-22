@@ -1,4 +1,4 @@
-package com.intelixence.easyreq;
+package com.devbinar.easyreq;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,10 +26,10 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.intelixence.peticiones.EasyReqFilter;
-import com.intelixence.peticiones.EasyReq;
-import com.intelixence.peticiones.EasyReqFile;
-import com.intelixence.peticiones.EasyReqFunctions;
+import com.devbinar.peticiones.EasyReqFilter;
+import com.devbinar.peticiones.EasyReq;
+import com.devbinar.peticiones.EasyReqFile;
+import com.devbinar.peticiones.EasyReqFunctions;
 
 public class peticionesdemo extends AppCompatActivity {
     EditText url,parametros,log,data;
@@ -85,7 +85,7 @@ public class peticionesdemo extends AppCompatActivity {
                             public void Error(VolleyError error, int code_request) {
                                 log.setText(error.toString());
                             }
-                        },null);
+                        },null, 25000);
                     }
                         break;
                     case 1: {
@@ -113,7 +113,7 @@ public class peticionesdemo extends AppCompatActivity {
                             public void Error(VolleyError error, int code_request) {
                                 log.setText(error.toString());
                             }
-                        }, null);
+                        }, null, 25000);
                     }
                         break;
                     case 2: {
@@ -137,7 +137,7 @@ public class peticionesdemo extends AppCompatActivity {
                             public void Error(VolleyError error, int code_request) {
                                 log.setText(error.toString());
                             }
-                        }, null);
+                        }, null, 25000);
                         break;
                     }
                     case 3:
@@ -163,7 +163,7 @@ public class peticionesdemo extends AppCompatActivity {
                             public void Error(VolleyError error, int code_request) {
                                 log.setText(error.toString());
                             }
-                        }, null);
+                        }, null, 25000);
                         break;
                     case 4:
                         EasyReq.READ_IMAGE(url.getText().toString(), new EasyReq.EventReadImage() {
