@@ -2,19 +2,19 @@ apply plugin: 'com.android.library'
 
 ext {
 
-    bintrayRepo = 'intelixence'
-    bintrayName = 'com.intelixence.easyreq'
+    bintrayRepo = 'community'
+    bintrayName = 'com.devbinar.community'
 
     libraryName = 'EasyReq'
 
-    publishedGroupId = 'com.intelixence.easyreq'
+    publishedGroupId = 'com.devbinar.community'
     artifact = 'EasyReqLibrary'
-    libraryVersion = '0.8'
+    libraryVersion = '0.10'
 
     libraryDescription = 'Easy Request'
-    siteUrl = 'https://intelixence.com'
-    gitUrl = 'https://github.com/Intelixence/EasyReq.git'
-    developerId = 'Intelixence'
+    siteUrl = 'https://devbinar.com'
+    gitUrl = 'https://github.com/devbinar/EasyReq.git'
+    developerId = 'Devbinar'
     developerName = 'JULIAN ANDRES RAMIREZ ENCISO'
     developerEmail = 'xprite.g@gmail.com'
     licenseName = 'The Apache Software License, Version 2.0'

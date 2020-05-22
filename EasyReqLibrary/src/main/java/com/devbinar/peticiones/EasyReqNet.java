@@ -1,4 +1,4 @@
-package com.intelixence.peticiones;
+package com.devbinar.peticiones;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

@@ -26,11 +26,11 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.intelixence.peticiones.AutoClasificar;
-import com.intelixence.peticiones.Funciones;
-import com.intelixence.peticiones.ParteDatos;
-import com.intelixence.peticiones.Peticion;
-import com.intelixence.peticionesdemo.R;
+import com.devbinar.peticiones.AutoClasificar;
+import com.devbinar.peticiones.Funciones;
+import com.devbinar.peticiones.ParteDatos;
+import com.devbinar.peticiones.Peticion;
+import com.devbinar.peticionesdemo.R;
 
 public class peticionesdemo extends AppCompatActivity {
     EditText url,parametros,log,data;
