@@ -72,7 +72,7 @@ public class EasyReqFunctions {
     public static void text_multipart(DataOutputStream dataOutputStream, String nombre_parametro, String valor_parametro) throws IOException {
         dataOutputStream.writeBytes(two_hyphen + limit + end_line);
         dataOutputStream.writeBytes("Content-Disposition: form-data; name=\""+nombre_parametro+"\""+ end_line);
-        dataOutputStream.writeBytes(end_line);
+        dataOutputStream.writeBytes("Content-Type: text/plain; charset=UTF-8"+end_line);
         dataOutputStream.writeBytes(valor_parametro+ end_line);
     }
 
