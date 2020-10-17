@@ -309,7 +309,7 @@ public class EasyReq {
 
             @Override
             public String getBodyContentType() {
-                return "multipart/form-data;boundary="+ EasyReqFunctions.limit;
+                return EasyReqContent.MULTIPART_FORM_DATA+"boundary="+EasyReqFunctions.limit;
             }
 
             @Override

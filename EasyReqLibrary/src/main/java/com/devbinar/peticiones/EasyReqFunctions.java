@@ -56,7 +56,7 @@ public class EasyReqFunctions {
     public static void analyze_text(DataOutputStream dataOutputStream, Map<String, String> params, String encoding) throws IOException {
         try {
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                text_multipart(dataOutputStream, entry.getKey(), entry.getValue());
+                text_multipart(dataOutputStream, entry.getKey(), new String(entry.getValue().getBytes(), "UTF-8"));
             }
         } catch (UnsupportedEncodingException uee) {
             throw new RuntimeException("Encoding not supported: " + encoding, uee);
