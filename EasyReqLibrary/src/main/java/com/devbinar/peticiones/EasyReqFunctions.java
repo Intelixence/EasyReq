@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Map;
 
@@ -56,7 +57,7 @@ public class EasyReqFunctions {
     public static void analyze_text(DataOutputStream dataOutputStream, Map<String, String> params, String encoding) throws IOException {
         try {
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                text_multipart(dataOutputStream, entry.getKey(), new String(entry.getValue().getBytes(), "UTF-8"));
+                text_multipart(dataOutputStream, entry.getKey(), entry.getValue());
             }
         } catch (UnsupportedEncodingException uee) {
             throw new RuntimeException("Encoding not supported: " + encoding, uee);
@@ -72,8 +73,9 @@ public class EasyReqFunctions {
     public static void text_multipart(DataOutputStream dataOutputStream, String nombre_parametro, String valor_parametro) throws IOException {
         dataOutputStream.writeBytes(two_hyphen + limit + end_line);
         dataOutputStream.writeBytes("Content-Disposition: form-data; name=\""+nombre_parametro+"\""+ end_line);
-        dataOutputStream.writeBytes("Content-Type: text/plain; charset=UTF-8"+end_line);
-        dataOutputStream.writeBytes(valor_parametro+ end_line);
+        dataOutputStream.writeBytes("charset=UTF-8"+end_line);
+        dataOutputStream.writeBytes(end_line);
+        dataOutputStream.writeBytes(new String(new String(valor_parametro.getBytes(), "ISO-8859-1").getBytes(), "UTF-8") + end_line);
     }
 
     public static void files_multipart(DataOutputStream dataOutputStream, EasyReqFile easyReqFile, String inputName) throws IOException {
