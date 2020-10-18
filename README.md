@@ -12,14 +12,25 @@ This library is based in volley, is ideal for save up time of work and developme
 
 * READ_IMAGE
 
+See the java class EasyReq for more will knowing of the library.
 
 ## Start
 
 1. Add the dependencies a gradle that are:
 
-* implementation 'com.devbinar.community:EasyReqLibrary:0.11'
+* implementation 'com.devbinar.community:EasyReqLibrary:0.12'
 
 * implementation 'com.android.volley:volley:1.1.1'
+
+* add in build.gradle:
+```
+ allprojects {
+      repositories {
+          maven { url 'https://jitpack.io' }
+          maven { url  'https://dl.bintray.com/devbinar/community' }
+      }
+ }
+```
 
 2. sync gradle
 
